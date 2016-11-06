@@ -58,6 +58,8 @@ after(function (callback) {
       });
 
     });
+
+    return null;
   })
   .catch(callback);
 });

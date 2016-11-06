@@ -67,8 +67,9 @@ Fallout 4 takes place in the year 2287, ten years after the events of Fallout 3.
 
     we.db.models.post.bulkCreate(posts)
     .spread(function() {
-      we.log.info(posts.length + 'posts created');
+      we.log.info(posts.length + ' posts created');
       done();
+      return null;
     })
     .catch(done);
   }

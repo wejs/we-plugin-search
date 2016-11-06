@@ -1,0 +1,23 @@
+{
+  "attributes": {
+    "title": {
+      "type": "string",
+      "allowNull": false
+    },
+    "body": {
+      "type": "text"
+    },
+    "category": {
+      "type": "string",
+      "defaultValue": null
+    },
+    "comments": {
+      "type": "INTEGER",
+      "defaultValue": 0
+    },
+    "published": {
+      "type": "boolean",
+      "defaultValue": false
+    }
+  }
+}

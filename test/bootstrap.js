@@ -1,55 +1,63 @@
-var projectPath = process.cwd();
-var deleteDir = require('rimraf');
-var testTools = require('we-test-tools');
-var path = require('path');
-var we;
+const projectPath = process.cwd(),
+      deleteDir = require('rimraf'),
+      testTools = require('we-test-tools'),
+      path = require('path'),
+      ncp = require('ncp').ncp;
 
+let we;
+
+// move the example plugin
+before(function (callback) {
+  const from = path.resolve(__dirname, 'stubs/we-plugin-post'),
+        to = path.resolve(process.cwd(), 'node_modules/we-plugin-post');
+
+  ncp( from, to, callback);
+});
+
+before(function(callback) {
+  testTools.copyLocalConfigIfNotExitst(projectPath, callback);
+});
+
+// start the we.js app
 before(function(callback) {
   this.slow(100);
 
-  testTools.copyLocalConfigIfNotExitst(projectPath, function() {
-    var We = require('we-core');
-    we = new We();
+  const We = require('we-core');
+  we = new We();
 
-    testTools.init({}, we);
+  testTools.init({}, we);
 
-    we.bootstrap({
-      i18n: {
-        directory: path.join(__dirname, 'locales'),
-        updateFiles: true
-      }
-    } , function(err, we) {
-      if (err) throw err;
-
-      we.startServer(function(err) {
-        if (err) throw err;
-        callback();
-      });
-    });
+  we.bootstrap({
+    i18n: {
+      directory: path.join(__dirname, 'locales'),
+      updateFiles: false
+    },
+    enableRequestLog: false
+  } , (err, we)=> {
+    if (err) throw err;
+    we.startServer(callback);
   });
 });
 
 //after all tests
 after(function (callback) {
-  we.db.defaultConnection.close();
+  we.db.sequelize.sync({force: true})
+  .then(function(){
+    we.exit( ()=> {
 
-  var tempFolders = [
-    projectPath + '/files/tmp',
-    projectPath + '/files/config',
-    projectPath + '/files/sqlite',
+      var tempFolders = [
+        projectPath + '/node_modules/we-plugin-post',
+        projectPath + '/config/local.js',
+      ];
 
-    projectPath + '/files/public/min',
+      we.utils.async.each(tempFolders, function(folder, next) {
+        deleteDir( folder, next);
+      }, function(err) {
+        if (err) throw new Error(err);
+        callback();
+      });
 
-    projectPath + '/files/public/project.css',
-    projectPath + '/files/public/project.js',
-    projectPath + '/config/local.js',
-  ];
-
-  we.utils.async.each(tempFolders, function(folder, next){
-    deleteDir( folder, next);
-  }, function(err) {
-    if (err) throw new Error(err);
-    callback();
+    });
   })
-
+  .catch(callback);
 });

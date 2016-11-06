@@ -72,6 +72,8 @@ Will accept this query params as filters:
 
 ... see all query params in: https://github.com/wejs/we-plugin-search/blob/master/plugin.js#L15
 
+@TODO list all query params generated here
+
 ## Links
 
 * We.js site: http://wejs.org

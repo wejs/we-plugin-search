@@ -1,7 +1,8 @@
 {
   "name": "we-plugin-search",
-  "description": "We.js we-plugin-search plugin",
+  "description": "We.js api query param search plugin",
   "version": "1.0.0",
+  "homepage": "https://wejs.org",
   "main": "plugin.js",
   "scripts": {
     "test": "NODE_ENV=test LOG_LV=info ./node_modules/.bin/mocha test/bootstrap.js test/**/*.test.js"
@@ -18,11 +19,16 @@
     "we-core": "wejs/we-core",
     "we-test-tools": "wejs/we-test-tools"
   },
+  "repository": "wejs/we-plugin-search",
+  "author": "Alberto Souza <contato@albertosouza.net>",
   "license": "MIT",
   "keywords": [
     "wejs-plugin",
     "search"
   ],
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "wejs": {
     "plugins": {
       "we-plugin-post": true

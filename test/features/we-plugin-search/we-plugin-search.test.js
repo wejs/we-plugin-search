@@ -13,6 +13,8 @@ describe('we-plugin-search', function() {
     agent = request.agent(http);
 
     we = helpers.getWe();
+
+    console.log('\n', we.db.models.post.urlSearchParams)
     done();
   });
 

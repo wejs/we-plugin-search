@@ -1,5 +1,8 @@
 # We.js search plugin 
 
+ [![Build Status](https://travis-ci.org/wejs/we-plugin-search.svg?branch=master)](https://travis-ci.org/wejs/we-plugin-search) [![Coverage Status](https://coveralls.io/repos/github/wejs/we-plugin-search/badge.svg?branch=master)](https://coveralls.io/github/wejs/we-plugin-search?branch=master)
+
+
 Automaticaly add suport for use url query params as database query where params in findAll actions.
 
 ## Installation

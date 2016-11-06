@@ -255,16 +255,17 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     // console.log('model', ctx.res.locals.model);
     // console.log('model', ctx.res.locals.Model.urlSearchParams);
 
-    const urlSearchParams = ctx.res.locals.Model.urlSearchParams;
-
     // skip if dont have query params
     if (
       ctx.res.locals.action !='find' ||
       !ctx.res.locals.model ||
+      !ctx.res.locals.Model ||
       !ctx.req.query
     ) {
       return done();
     }
+
+    const urlSearchParams = ctx.res.locals.Model.urlSearchParams;
 
     // skip if the query param dont have params
     const queryParamNames = Object.keys(ctx.req.query);

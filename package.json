@@ -1,7 +1,7 @@
 {
   "name": "we-plugin-search",
   "description": "We.js api query param search plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://wejs.org",
   "main": "plugin.js",
   "scripts": {

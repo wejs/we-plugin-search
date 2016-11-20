@@ -1,6 +1,6 @@
 {
   "name": "we-plugin-search",
-  "description": "We.js api query param search plugin",
+  "description": "We.js plugin for automaticaly parse query params to database search",
   "version": "1.0.1",
   "homepage": "https://wejs.org",
   "main": "plugin.js",

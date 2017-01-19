@@ -5,11 +5,10 @@ module.exports = {
    * @param  {Object}   we    we.js object
    * @param  {Function} done  callback
    */
-  install: function install(we, done) {
-    var posts = [
+  install(we, done) {
+    const posts = [
     {
       title: 'Fallout (series)',
-      /* jshint ignore:start */
       body: `Fallout is a series of post-apocalyptic role-playing video games. It was created by Interplay Entertainment. Although the series is set during the 22nd and 23rd centuries, its atompunk retrofuturistic setting and artwork are influenced by the post-war culture of 1950s America, and its combination of hope for the promises of technology, and lurking fear of nuclear annihilation. A forerunner for Fallout is Wasteland, a 1988 video game of which the Fallout series is regarded to be a spiritual successor. Although the game worlds are different, the background story, inhabitants, locations, and characters draw many parallels.
 
 The first two titles in the series, Fallout and Fallout 2, were developed by Black Isle Studios. Micro Forté and 14 Degrees East's 2001 Fallout Tactics: Brotherhood of Steel is a tactical role-playing game. In 2004, Interplay closed Black Isle Studios,[1] and continued to produce an action game with role-playing elements for the PlayStation 2 and Xbox, Fallout: Brotherhood of Steel without Black Isle Studios. A third entry in the main series, Fallout 3, was released in 2008 by Bethesda Softworks. It was followed by Fallout: New Vegas in 2010, developed by Obsidian Entertainment. Fallout 4 was announced on June 3, 2015, and was released on November 10, 2015.
@@ -59,14 +58,14 @@ Bethesda Softworks owns the rights to produce Fallout games.[2] Soon after acqui
       body: `Fallout 4, developed by Bethesda Game Studios, was released on November 10, 2015. On June 3, 2015 the game's official website went live revealing the game along with its box art, platforms, and the first trailer.[15] The game was released for Microsoft Windows, PlayStation 4 and Xbox One and takes place in Boston, Massachusetts, of the in-game New England Commonwealth and features voiced protagonists.[16][17][18][19] The Xbox One version has been confirmed to have mods as of 2016. Bethesda has confirmed that the PlayStation 4 version has been denied proper access to mods by Sony but will post updates if any changes occur. .[20]
 
 Fallout 4 takes place in the year 2287, ten years after the events of Fallout 3. Fallout 4 's story begins on the day the bombs dropped: October 23, 2077. The player's character (voiced by either Brian T. Delaney or Courtenay Taylor), dubbed as the Sole Survivor, takes shelter in Vault 111, emerging exactly 210 years later, after being subjected to suspended animation. something.`,
-      /* jshint ignore:end */
       comments: 10,
       published: false
     }
     ];
 
-    we.db.models.post.bulkCreate(posts)
-    .spread(function() {
+    we.db.models.post
+    .bulkCreate(posts)
+    .spread( ()=> {
       we.log.info(posts.length + ' posts created');
       done();
       return null;

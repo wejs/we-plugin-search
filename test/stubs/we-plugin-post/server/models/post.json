@@ -1,14 +1,14 @@
 {
   "attributes": {
     "title": {
-      "type": "string",
+      "type": "STRING",
       "allowNull": false
     },
     "body": {
-      "type": "text"
+      "type": "TEXT"
     },
     "category": {
-      "type": "string",
+      "type": "STRING",
       "defaultValue": null
     },
     "comments": {
@@ -16,8 +16,11 @@
       "defaultValue": 0
     },
     "published": {
-      "type": "boolean",
+      "type": "BOOLEAN",
       "defaultValue": false
     }
+  },
+  "options": {
+    "charset": "utf8mb4"
   }
 }

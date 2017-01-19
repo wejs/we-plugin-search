@@ -8,10 +8,10 @@ let we;
 
 // move the example plugin
 before(function (callback) {
-  const from = path.resolve(__dirname, 'stubs/we-plugin-post'),
+  const fromp = path.resolve(__dirname, 'stubs/we-plugin-post'),
         to = path.resolve(process.cwd(), 'node_modules/we-plugin-post');
 
-  ncp( from, to, callback);
+  ncp( fromp, to, callback);
 });
 
 before(function(callback) {
@@ -46,8 +46,7 @@ after(function (callback) {
     we.exit( ()=> {
 
       var tempFolders = [
-        projectPath + '/node_modules/we-plugin-post',
-        projectPath + '/config/local.js',
+        projectPath + '/node_modules/we-plugin-post'
       ];
 
       we.utils.async.each(tempFolders, function(folder, next) {

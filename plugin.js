@@ -4,13 +4,10 @@
  * see http://wejs.org/docs/we/plugin
  */
 
-var sequelizeAdapter = require('./lib/sequelize_adapter');
+const sequelizeAdapter = require('./lib/sequelize_adapter');
 
 module.exports = function loadPlugin(projectPath, Plugin) {
-  var plugin = new Plugin(__dirname);
-  // set plugin configs
-  // plugin.setConfigs({
-  // });
+  const plugin = new Plugin(__dirname);
 
   plugin.params = {
     default: function defaultSearchParams(name, params) {
@@ -155,6 +152,12 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     },
     REAL: function realSearchParams(name, params, modelName) {
       this.INTEGER(name, params, modelName);
+    },
+    DECIMAL: function(name, params, modelName) {
+      this.INTEGER(name, params, modelName);
+    },
+    TIME: function(name, params, modelName) {
+      this.DATE(name, params, modelName);
     },
     DATE: function dataSearchParams(name, params) {
       params[name] = {

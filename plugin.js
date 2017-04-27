@@ -159,6 +159,9 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     TIME: function(name, params, modelName) {
       this.DATE(name, params, modelName);
     },
+    DATEONLY: function dateonlySearchParams(name, params, modelName) {
+      this.DATE(name, params, modelName);
+    },
     DATE: function dataSearchParams(name, params) {
       params[name] = {
         name: name,
@@ -207,6 +210,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
         fn: sequelizeAdapter.lessThanOrEqual
       };
     },
+
     /**
      * Virtual search param setters not is suported
      */

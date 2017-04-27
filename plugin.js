@@ -1,7 +1,5 @@
 /**
- * Plugin.js file, set configs, routes, hooks and events here
- *
- * see http://wejs.org/docs/we/plugin
+ * Main we-plugin-search file
  */
 
 const sequelizeAdapter = require('./lib/sequelize_adapter');
@@ -10,7 +8,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
   const plugin = new Plugin(__dirname);
 
   plugin.params = {
-    default: function defaultSearchParams(name, params) {
+    default(name, params) {
       params[name] = {
         name: name,
         fn: sequelizeAdapter.equal
@@ -28,7 +26,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
         fn: sequelizeAdapter.notIsNull
       };
     },
-    STRING: function stringSearchParams(name, params) {
+    STRING(name, params) {
       params[name] = {
         name: name,
         fn: sequelizeAdapter.equal
@@ -74,10 +72,10 @@ module.exports = function loadPlugin(projectPath, Plugin) {
         fn: sequelizeAdapter.notContains
       };
     },
-    TEXT: function text(name, params, modelName) {
+    TEXT(name, params, modelName) {
       this.STRING(name, params, modelName);
     },
-    BOOLEAN: function booleanSearchParams(name, params) {
+    BOOLEAN(name, params) {
       params[name] = {
         name: name,
         fn: sequelizeAdapter.booleanEqual
@@ -96,7 +94,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
         fn: sequelizeAdapter.notIsNull
       };
     },
-    INTEGER: function intergerSearchParams(name, params) {
+    INTEGER(name, params) {
       params[name] = {
         name: name,
         fn: sequelizeAdapter.equal
@@ -144,25 +142,25 @@ module.exports = function loadPlugin(projectPath, Plugin) {
         fn: sequelizeAdapter.lessThanOrEqual
       };
     },
-    BIGINT: function bigintSearchParams(name, params, modelName) {
+    BIGINT(name, params, modelName) {
       this.INTEGER(name, params, modelName);
     },
-    FLOAT: function floatSearchParams(name, params, modelName) {
+    FLOAT(name, params, modelName) {
       this.INTEGER(name, params, modelName);
     },
-    REAL: function realSearchParams(name, params, modelName) {
+    REAL(name, params, modelName) {
       this.INTEGER(name, params, modelName);
     },
-    DECIMAL: function(name, params, modelName) {
+    DECIMAL(name, params, modelName) {
       this.INTEGER(name, params, modelName);
     },
-    TIME: function(name, params, modelName) {
+    TIME(name, params, modelName) {
       this.DATE(name, params, modelName);
     },
-    DATEONLY: function dateonlySearchParams(name, params, modelName) {
+    DATEONLY(name, params, modelName) {
       this.DATE(name, params, modelName);
     },
-    DATE: function dataSearchParams(name, params) {
+    DATE(name, params) {
       params[name] = {
         name: name,
         fn: sequelizeAdapter.equal
@@ -214,7 +212,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     /**
      * Virtual search param setters not is suported
      */
-    VIRTUAL: function virtualSearchParams() {}
+    VIRTUAL() {}
   };
 
   // plug this feature in we.js routes
@@ -225,8 +223,6 @@ module.exports = function loadPlugin(projectPath, Plugin) {
       plugin.setAttrSearchParams(modelName, we.db.models[modelName]);
     }
 
-    // console.log('post afterAll>\n', we.db.models.post.urlSearchParams);
-
     done();
   };
 
@@ -235,8 +231,6 @@ module.exports = function loadPlugin(projectPath, Plugin) {
 
     for(let attrName in model.attributes) {
       model.attributes[attrName].type.key.toLowerCase();
-
-      // console.log('attr>', attrName, model.attributes[attrName].type.key);
 
       let type = model.attributes[attrName].type.key;
 
@@ -251,17 +245,13 @@ module.exports = function loadPlugin(projectPath, Plugin) {
 
   };
 
+  /**
+   * We.js middleware for plugin search plugin before controllers
+   *
+   * @param  {Object}   ctx   tx = { req: this.req, res: this.res }
+   * @param  {Function} done  callback
+   */
   plugin.middleware = function searchMiddleware(ctx, done) {
-    // ctx = {
-    //   req: this.req, res: this.res
-    // }
-
-    // console.log('ctx.req.query>', ctx.req.query);
-    // console.log('ctx.res.locals.query>', ctx.res.locals.query);
-
-    // console.log('model', ctx.res.locals.model);
-    // console.log('model', ctx.res.locals.Model.urlSearchParams);
-
     // skip if dont have query params
     if (
       ctx.res.locals.action !='find' ||
@@ -288,8 +278,6 @@ module.exports = function loadPlugin(projectPath, Plugin) {
         );
       }
     }
-
-    // console.log('query>\n', ctx.res.locals.query);
 
     done();
   };

@@ -230,6 +230,10 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     model.urlSearchParams = {};
 
     for(let attrName in model.attributes) {
+      if (!model.attributes[attrName].type || !model.attributes[attrName].type.key) {
+        continue; // type.key is required but not avaible if set model.attr types with string
+      }
+
       model.attributes[attrName].type.key.toLowerCase();
 
       let type = model.attributes[attrName].type.key;

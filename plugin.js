@@ -212,7 +212,15 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     /**
      * Virtual search param setters not is suported
      */
-    VIRTUAL() {}
+    VIRTUAL() {},
+
+    /**
+     * Bloob fields
+     * Mysql allows to search in bloob fields like text
+     */
+    BLOB(name, params, modelName) {
+      this.STRING(name, params, modelName);
+    }
   };
 
   // plug this feature in we.js routes

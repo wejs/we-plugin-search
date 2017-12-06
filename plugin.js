@@ -281,6 +281,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
   plugin.middleware = function searchMiddleware(ctx, done) {
     if ( !plugin.checkIfIsValidControllerAction(ctx) ) {
       done();
+      return null;
     }
 
     const urlSearchParams = ctx.res.locals.Model.urlSearchParams;

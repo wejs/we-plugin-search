@@ -257,6 +257,21 @@ module.exports = function loadPlugin(projectPath, Plugin) {
 
   };
 
+  plugin.controllerActionsWithSearch = ['find', 'count'];
+  plugin.checkIfIsValidControllerAction = function checkIfIsValidControllerAction(ctx) {
+    // skip if dont have query params
+    if (
+      ( plugin.controllerActionsWithSearch.indexOf(ctx.res.locals.action) === -1 ) ||
+      !ctx.res.locals.model ||
+      !ctx.res.locals.Model ||
+      !ctx.req.query
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   /**
    * We.js middleware for plugin search plugin before controllers
    *
@@ -264,14 +279,8 @@ module.exports = function loadPlugin(projectPath, Plugin) {
    * @param  {Function} done  callback
    */
   plugin.middleware = function searchMiddleware(ctx, done) {
-    // skip if dont have query params
-    if (
-      ctx.res.locals.action !='find' ||
-      !ctx.res.locals.model ||
-      !ctx.res.locals.Model ||
-      !ctx.req.query
-    ) {
-      return done();
+    if ( !plugin.checkIfIsValidControllerAction(ctx) ) {
+      done();
     }
 
     const urlSearchParams = ctx.res.locals.Model.urlSearchParams;

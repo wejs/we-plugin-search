@@ -2,10 +2,11 @@
  * Main we-plugin-search file
  */
 
-const sequelizeAdapter = require('./lib/sequelize_adapter');
+
 
 module.exports = function loadPlugin(projectPath, Plugin) {
   const plugin = new Plugin(__dirname);
+  const sequelizeAdapter = require('./lib/sequelize_adapter')(plugin.we);
 
   plugin.params = {
     default(name, params) {

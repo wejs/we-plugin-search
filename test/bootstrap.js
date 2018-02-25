@@ -44,8 +44,7 @@ after(function (callback) {
   we.db.sequelize.sync({force: true})
   .then(function(){
     we.exit( ()=> {
-
-      var tempFolders = [
+      let tempFolders = [
         projectPath + '/node_modules/we-plugin-post'
       ];
 
@@ -61,4 +60,8 @@ after(function (callback) {
     return null;
   })
   .catch(callback);
+});
+
+after(function () {
+  process.exit();
 });

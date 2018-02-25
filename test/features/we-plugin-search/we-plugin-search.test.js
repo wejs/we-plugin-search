@@ -765,7 +765,7 @@ describe('we-plugin-search', function() {
       we.db.models.post.update({
         createdAt: now
       }, {
-        where: { id: { $gt: post.id }},
+        where: { id: { [we.Op.gt]: post.id }},
         limit: 2
       })
       .nodeify(done);

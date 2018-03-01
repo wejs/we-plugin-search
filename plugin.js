@@ -221,7 +221,12 @@ module.exports = function loadPlugin(projectPath, Plugin) {
      */
     BLOB(name, params, modelName) {
       this.STRING(name, params, modelName);
-    }
+    },
+
+    /**
+     * Search in ENUM fields not is suported
+     */
+    ENUM() {}
   };
 
   // plug this feature in we.js routes

@@ -155,6 +155,9 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     DECIMAL(name, params, modelName) {
       this.INTEGER(name, params, modelName);
     },
+    'DOUBLE PRECISION'(name, params, modelName) {
+      this.INTEGER(name, params, modelName);
+    },
     TIME(name, params, modelName) {
       this.DATE(name, params, modelName);
     },

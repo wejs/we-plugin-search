@@ -84,5 +84,5 @@ Will accept this query params as filters:
 
 ## Sponsored by
 
-- Linky Systems: https://linkysystems.com
+- Linky: https://linkysystems.com
 

@@ -6,4 +6,8 @@ files/uploads
 .jshintrc
 .travis.yml
 .gitignore
+.nyc_output
 *.log
+*.sql
+*.sqlite
+coverage

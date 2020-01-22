@@ -2,8 +2,6 @@
  * Main we-plugin-search file
  */
 
-
-
 module.exports = function loadPlugin(projectPath, Plugin) {
   const plugin = new Plugin(__dirname);
   const sequelizeAdapter = require('./lib/sequelize_adapter')(plugin.we);
@@ -246,14 +244,14 @@ module.exports = function loadPlugin(projectPath, Plugin) {
   plugin.setAttrSearchParams = function setAttrSearchParams(name, model) {
     model.urlSearchParams = {};
 
-    for(let attrName in model.attributes) {
-      if (!model.attributes[attrName].type || !model.attributes[attrName].type.key) {
+    for(let attrName in model.rawAttributes) {
+      if (!model.rawAttributes[attrName].type || !model.rawAttributes[attrName].type.key) {
         continue; // type.key is required but not avaible if set model.attr types with string
       }
 
-      model.attributes[attrName].type.key.toLowerCase();
+      model.rawAttributes[attrName].type.key.toLowerCase();
 
-      let type = model.attributes[attrName].type.key;
+      let type = model.rawAttributes[attrName].type.key;
 
       if (!plugin.params[type]) {
         plugin.we.log.info('param search type not found for:', type, name, attrName);
@@ -289,8 +287,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
    */
   plugin.middleware = function searchMiddleware(ctx, done) {
     if ( !plugin.checkIfIsValidControllerAction(ctx) ) {
-      done();
-      return null;
+      return done();
     }
 
     const urlSearchParams = ctx.res.locals.Model.urlSearchParams;

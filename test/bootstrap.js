@@ -15,7 +15,7 @@ before(function (callback) {
 });
 
 before(function(callback) {
-  testTools.copyLocalConfigIfNotExitst(projectPath, callback);
+  testTools.copyLocalSQLiteConfigIfNotExists(projectPath, callback);
 });
 
 // start the we.js app
@@ -45,7 +45,9 @@ after(function (callback) {
   .then(function(){
     we.exit( ()=> {
       let tempFolders = [
-        projectPath + '/node_modules/we-plugin-post'
+        projectPath + '/node_modules/we-plugin-post',
+        'database-test.sqlite',
+        'database.sqlite'
       ];
 
       we.utils.async.each(tempFolders, function(folder, next) {

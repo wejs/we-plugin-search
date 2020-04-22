@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - v10
+  - v12
 
 addons:
   code_climate:

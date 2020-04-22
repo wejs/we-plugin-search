@@ -227,7 +227,15 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     /**
      * Search in ENUM fields not is suported
      */
-    ENUM() {}
+    ENUM() {},
+
+    /**
+     * Json fields
+     */
+    JSON(name, params, modelName) {
+      // @TODO add support to use advanced json field query
+      this.STRING(name, params, modelName);
+    }
   };
 
   // plug this feature in we.js routes
@@ -254,7 +262,9 @@ module.exports = function loadPlugin(projectPath, Plugin) {
       let type = model.rawAttributes[attrName].type.key;
 
       if (!plugin.params[type]) {
-        plugin.we.log.info('param search type not found for:', type, name, attrName);
+        plugin.we.log.info('param search type not found for:', {
+          type, name, attrName
+        });
         // use the default if is and unsuported data type
         plugin.params.default(attrName, model.urlSearchParams, name);
       } else {
@@ -277,7 +287,7 @@ module.exports = function loadPlugin(projectPath, Plugin) {
     } else {
       return true;
     }
-  }
+  };
 
   /**
    * We.js middleware for plugin search plugin before controllers
